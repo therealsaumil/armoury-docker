@@ -1,0 +1,12 @@
+#!/bin/bash
+
+OWNERNAME="therealsaumil"
+IMAGENAME="armoury"
+TAGNAME="07-2021"
+
+docker run \
+	-it \
+	--rm \
+	--name armoury-docker \
+	--mount "type=bind,src=$(pwd)/workspace,dst=/home/armdev/workspace" \
+	$OWNERNAME/$IMAGENAME:$TAGNAME $*

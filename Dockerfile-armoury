@@ -1,0 +1,56 @@
+# Dockerfile for ARMOURY-Docker
+# Cross compiler stuff
+# by Saumil Shah
+
+FROM debian:10-slim
+
+# Install packages
+RUN apt update && \
+    apt upgrade --yes && \
+    apt install sudo \
+                curl \
+                wget \
+                vim \
+                locales \
+                procps \
+                build-essential \
+                ncurses-dev \
+                --yes
+
+# Set up the prebuilt Linaro GCC 4.9 toolchain
+# The older toolchain is essential to build older kernels
+
+WORKDIR /opt
+RUN curl -L http://releases.linaro.org/components/toolchain/binaries/4.9-2017.01/arm-linux-gnueabi/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabi.tar.xz | tar -Jxv
+
+# Create an armdev user for all userland work
+RUN adduser --disabled-password --gecos "" armdev
+RUN echo 'armdev ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+# Set armdev's shell to bash
+RUN sed -i 's!/bin/ash!/bin/bash!g' /etc/passwd
+
+# Set up the home directory of armdev user
+WORKDIR /home/armdev
+
+# Add bashrc, ssh configs, etc
+COPY --chown=armdev files/home/armdev/bashrc .bashrc
+COPY --chown=armdev files/home/armdev/profile .profile
+COPY --chown=armdev files/home/armdev/dircolors .dircolors
+
+COPY --chown=root files/home/armdev/bashrc /root/.bashrc
+COPY --chown=root files/home/armdev/profile /root/.profile
+COPY --chown=root files/home/armdev/dircolors /root/.dircolors
+
+# Set up the docker entrypoint script
+COPY ./docker-entrypoint.sh /usr/local/bin
+
+USER armdev
+
+ENV TERM xterm-256color
+ENV LANG C.UTF-8
+ENV CHARSET UTF-8
+ENV LC_COLLATE C
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["/bin/bash"]

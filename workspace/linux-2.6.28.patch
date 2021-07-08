@@ -1,0 +1,36 @@
+diff -ruN a/Makefile b/Makefile
+--- a/Makefile	2008-12-25 04:56:37.000000000 +0530
++++ b/Makefile	2021-07-08 23:59:22.799417781 +0530
+@@ -439,7 +439,7 @@
+ include $(srctree)/arch/$(SRCARCH)/Makefile
+ export KBUILD_DEFCONFIG KBUILD_KCONFIG
+
+-config %config: scripts_basic outputmakefile FORCE
++%config: scripts_basic outputmakefile FORCE
+ 	$(Q)mkdir -p include/linux include/config
+ 	$(Q)$(MAKE) $(build)=scripts/kconfig $@
+
+@@ -1604,7 +1604,7 @@
+ 	$(Q)$(MAKE) $(build)=$(build-dir) $(target-dir)$(notdir $@)
+
+ # Modules
+-/ %/: prepare scripts FORCE
++%/: prepare scripts FORCE
+ 	$(cmd_crmodverdir)
+ 	$(Q)$(MAKE) KBUILD_MODULES=$(if $(CONFIG_MODULES),1) \
+ 	$(build)=$(build-dir)
+diff -ruN a/kernel/timeconst.pl b/kernel/timeconst.pl
+--- a/kernel/timeconst.pl	2008-12-25 04:56:37.000000000 +0530
++++ b/kernel/timeconst.pl	2021-07-08 23:59:32.495357156 +0530
+@@ -370,9 +370,9 @@
+ 	}
+
+ 	@val = @{$canned_values{$hz}};
+-	if (!defined(@val)) {
++	#if (!defined(@val)) {
+ 		@val = compute_values($hz);
+-	}
++	#}
+ 	output($hz, @val);
+ }
+ exit 0;

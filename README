@@ -1,0 +1,18 @@
+   _   ___ __  __  ___  _   _ _____   __  | The ARM Exploit Laboratory
+  /_\ | _ \  \/  |/ _ \| | | | _ \ \ / /  | armx.exploitlab.net
+ / _ \|   / |\/| | (_) | |_| |   /\ V /   |
+/_/ \_\_|_\_|  |_|\___/ \___/|_|_\ |_|    | ARM Cross Compiler Container
+
+1. Build the docker image
+
+./build-armoury-docker
+
+2. Start the container
+
+./run-armoury-docker
+
+3. Attach additional shell sessions to the container
+
+./armoury-docker-shell
+
+The workspace/ directory is shared between the host and the container. Refer the file workspace/KERNEL_COMPILE.TXT for an example on how to cross compile a really old Linux kernel for the ARM architecture.

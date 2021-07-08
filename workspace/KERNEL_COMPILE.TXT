@@ -1,0 +1,29 @@
+Building Linux Kernel 2.6.28 for ARM
+------------------------------------
+
+FROM THE HOST:
+
+1. Download the kernel source
+
+wget https://mirrors.edge.kernel.org/pub/linux/kernel/v2.6/linux-2.6.28.tar.bz2
+
+2. Extract the source
+
+tar xvf linux-2.6.28.tar.bz2
+
+3. Apply the linux-2.6.28.patch
+
+cd linux-2.6.28
+patch -p1 < ../linux-2.6.28.patch
+
+FROM THE CONTAINER:
+
+cd ~/workspace/linux-2.6.28
+make ARCH=arm versatile_defconfig
+make ARCH=arm menuconfig (select the kernel options you need, or leave them as-is)
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- zImage
+
+The kernel build process can take a while.
+
+After it has finished, you will find the compiled kernel in the arch/arm/boot directory.
+

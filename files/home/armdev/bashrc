@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Ignore case during tab completion.
+bind 'set completion-ignore-case on'
+
+if [ "${ARMOURYDOCKERSHELL}" = "1" ]
+then
+   export PS1="\[\033[97;43m\][armoury-docker shell:\w\\$]\[\033[0m\] "
+else
+   export PS1="\[\033[97;101m\][ARMOURY-DOCKER:\w\\$]\[\033[0m\] "
+fi
+alias ls="ls -F --color=auto"
+eval $(dircolors -b ~/.dircolors/dircolors.256dark)
+export PATH="$PATH:/opt/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabi/bin"
