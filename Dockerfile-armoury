@@ -15,37 +15,38 @@ RUN apt update && \
                 procps \
                 build-essential \
                 ncurses-dev \
+                elfutils \
                 --yes
 
-# Set up the prebuilt Linaro GCC 4.9 toolchain
-# The older toolchain is essential to build older kernels
-
 WORKDIR /opt
-RUN curl -L http://releases.linaro.org/components/toolchain/binaries/4.9-2017.01/arm-linux-gnueabi/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabi.tar.xz | tar -Jxv
 
-# Create an armdev user for all userland work
-RUN adduser --disabled-password --gecos "" armdev
-RUN echo 'armdev ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/arm-unknown-linux.tar.xz | tar -Jxv
+RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/mips-unknown-linux.tar.xz | tar -Jxv
+RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/mipsel-unknown-linux.tar.xz | tar -Jxv
 
-# Set armdev's shell to bash
+# Create an xdev user for all userland work
+RUN adduser --disabled-password --gecos "" xdev
+RUN echo 'xdev ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+# Set xdev's shell to bash
 RUN sed -i 's!/bin/ash!/bin/bash!g' /etc/passwd
 
-# Set up the home directory of armdev user
-WORKDIR /home/armdev
+# Set up the home directory of xdev user
+WORKDIR /home/xdev
 
 # Add bashrc, ssh configs, etc
-COPY --chown=armdev files/home/armdev/bashrc .bashrc
-COPY --chown=armdev files/home/armdev/profile .profile
-COPY --chown=armdev files/home/armdev/dircolors .dircolors
+COPY --chown=xdev files/home/xdev/bashrc .bashrc
+COPY --chown=xdev files/home/xdev/profile .profile
+COPY --chown=xdev files/home/xdev/dircolors .dircolors
 
-COPY --chown=root files/home/armdev/bashrc /root/.bashrc
-COPY --chown=root files/home/armdev/profile /root/.profile
-COPY --chown=root files/home/armdev/dircolors /root/.dircolors
+COPY --chown=root files/home/xdev/bashrc /root/.bashrc
+COPY --chown=root files/home/xdev/profile /root/.profile
+COPY --chown=root files/home/xdev/dircolors /root/.dircolors
 
 # Set up the docker entrypoint script
 COPY ./docker-entrypoint.sh /usr/local/bin
 
-USER armdev
+USER xdev
 
 ENV TERM xterm-256color
 ENV LANG C.UTF-8

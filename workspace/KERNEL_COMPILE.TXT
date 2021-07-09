@@ -1,8 +1,8 @@
-Building Linux Kernel 2.6.28 for ARM
-------------------------------------
+Building Linux Kernel 2.6.28 for Trivision 227WF IP Camera on ARM
+-----------------------------------------------------------------
 
 FROM THE HOST:
-
+--------------
 1. Download the kernel source
 
 wget https://mirrors.edge.kernel.org/pub/linux/kernel/v2.6/linux-2.6.28.tar.bz2
@@ -11,19 +11,41 @@ wget https://mirrors.edge.kernel.org/pub/linux/kernel/v2.6/linux-2.6.28.tar.bz2
 
 tar xvf linux-2.6.28.tar.bz2
 
+FROM THE CONTAINER:
+-------------------
 3. Apply the linux-2.6.28.patch
+
+cd ~/workspace/
 
 cd linux-2.6.28
 patch -p1 < ../linux-2.6.28.patch
 
-FROM THE CONTAINER:
-
-cd ~/workspace/linux-2.6.28
-make ARCH=arm versatile_defconfig
-make ARCH=arm menuconfig (select the kernel options you need, or leave them as-is)
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- zImage
+arm-make versatile_defconfig
+arm-make menuconfig (Refer the section on kernel configuration options)
+arm-make zImage
 
 The kernel build process can take a while.
 
 After it has finished, you will find the compiled kernel in the arch/arm/boot directory.
 
+cp arch/arm/boot/zImage ~/workspace/zImage-newkernel
+
+KERNEL CONFIGURATION OPTIONS FOR THE IP CAMERA
+----------------------------------------------
+General Setup > Kernel .config support = Y  /proc/config.gz
+
+System Type > Support Thumb User Binaries = N
+
+Bus Types
+- Enable PCI bus
+
+Kernel Features > Use ARM EABI to compile the Kernel
+                > Preemptable Kernel = Y
+
+Device Drivers
+- SCSI device support <*> and not <M>
+- SCSI disk support
+- SCSI Low Level Drivers
+  - Enable SYM53C8XX Version 2 SCSI support
+
+File Systems > Enable EXT2, EXT3 and EXT4

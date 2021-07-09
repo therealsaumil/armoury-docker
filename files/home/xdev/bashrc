@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Ignore case during tab completion.
+bind 'set completion-ignore-case on'
+
+if [ "${ARMOURYDOCKERSHELL}" = "1" ]
+then
+   export PS1="\[\033[97;43m\][armoury-docker shell]\[\033[0m\] \w\\$ "
+else
+   export PS1="\[\033[97;101m\][ARMOURY-DOCKER]\[\033[0m\] \w\\$ "
+fi
+alias ls="ls -F --color=auto"
+eval $(dircolors -b ~/.dircolors/dircolors.256dark)
+export PATH="$PATH:/opt/usr/bin/"
+export LD_LIBRARY_PATH="/opt/usr/lib/"
+# easy shortcuts
+alias arm-make="make ARCH=arm CROSS_COMPILE=arm-linux-"
+alias mips-make="make ARCH=mips CROSS_COMPILE=mips-linux-"
+alias mipsel-make="make ARCH=mips CROSS_COMPILE=mipsel-linux-"
