@@ -1,0 +1,35 @@
+diff -ruN a/arch/mips/lib/delay.c b/arch/mips/lib/delay.c
+--- a/arch/mips/lib/delay.c	2021-10-29 01:26:59.515908328 +0530
++++ b/arch/mips/lib/delay.c	2021-10-29 01:23:01.093410497 +0530
+@@ -43,7 +43,7 @@
+ {
+ 	unsigned int lpj = current_cpu_data.udelay_val;
+
+-	__delay((us * 0x000010c7 * HZ * lpj) >> 32);
++	__delay((us * 0x000010c7ull * HZ * lpj) >> 32);
+ }
+ EXPORT_SYMBOL(__udelay);
+
+@@ -51,6 +51,6 @@
+ {
+ 	unsigned int lpj = current_cpu_data.udelay_val;
+
+-	__delay((us * 0x00000005 * HZ * lpj) >> 32);
++	__delay((ns * 0x00000005ull * HZ * lpj) >> 32);
+ }
+ EXPORT_SYMBOL(__ndelay);
+diff -ruN a/kernel/timeconst.pl b/kernel/timeconst.pl
+--- a/kernel/timeconst.pl	2008-12-25 04:56:37.000000000 +0530
++++ b/kernel/timeconst.pl	2021-07-08 23:59:32.495357156 +0530
+@@ -370,9 +370,9 @@
+ 	}
+
+ 	@val = @{$canned_values{$hz}};
+-	if (!defined(@val)) {
++	#if (!defined(@val)) {
+ 		@val = compute_values($hz);
+-	}
++	#}
+ 	output($hz, @val);
+ }
+ exit 0;
