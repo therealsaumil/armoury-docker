@@ -32,20 +32,27 @@ cp arch/arm/boot/zImage ~/workspace/zImage-newkernel
 
 KERNEL CONFIGURATION OPTIONS FOR THE IP CAMERA
 ----------------------------------------------
-General Setup > Kernel .config support = Y  /proc/config.gz
+General Setup
+<*> Kernel .config support (ENABLE)
+[*] Enable access to .config through /proc/config.gz (ENABLE)
 
-System Type > Support Thumb User Binaries = N
+System Type
+[ ] Support Thumb user binaries (DISABLE)
 
-Bus Types
-- Enable PCI bus
+Bus support
+[*] PCI support (ENABLE)
 
-Kernel Features > Use ARM EABI to compile the Kernel
-                > Preemptable Kernel = Y
+Kernel Features
+[*] Preemptible Kernel (ENABLE)
+[*] Use the ARM EABI to compile the kernel (ENABLE)
 
 Device Drivers
-- SCSI device support <*> and not <M>
-- SCSI disk support
-- SCSI Low Level Drivers
-  - Enable SYM53C8XX Version 2 SCSI support
+  SCSI device support
+  <*> SCSI device support (ENABLE)
+  <*> SCSI disk support (ENABLE)
+  [*] SCSI low-level drivers
+       <*>   SYM53C8XX Version 2 SCSI support (ENABLE)
 
-File Systems > Enable EXT2, EXT3 and EXT4
+File systems
+<*> Ext3 journalling file system support (ENABLE)
+<*> The Extended 4 (ext4) filesystem (ENABLE)

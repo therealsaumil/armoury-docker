@@ -12,8 +12,8 @@ fi
 alias ls="ls -F --color=auto"
 eval $(dircolors -b ~/.dircolors/dircolors.256dark)
 export PATH="$PATH:/opt/usr/bin/"
-export LD_LIBRARY_PATH="/opt/usr/lib/"
 # easy shortcuts
-alias arm-make="make ARCH=arm CROSS_COMPILE=arm-linux-"
-alias mips-make="make ARCH=mips CROSS_COMPILE=mips-linux-"
-alias mipsel-make="make ARCH=mips CROSS_COMPILE=mipsel-linux-"
+# globally setting LD_LIBRARY_PATH messes up rather badly
+alias arm-make="LD_LIBRARY_PATH=/opt/usr/lib/ make ARCH=arm CROSS_COMPILE=arm-linux-"
+alias mips-make="LD_LIBRARY_PATH=/opt/usr/lib/ make ARCH=mips CROSS_COMPILE=mips-linux-"
+alias mipsel-make="LD_LIBRARY_PATH=/opt/usr/lib/ make ARCH=mips CROSS_COMPILE=mipsel-linux-"

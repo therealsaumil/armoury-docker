@@ -2,7 +2,7 @@
 # Cross compiler stuff
 # by Saumil Shah
 
-FROM debian:10-slim
+FROM debian:stable-slim
 
 # Install packages
 RUN apt update && \
