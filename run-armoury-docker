@@ -2,7 +2,7 @@
 
 OWNERNAME="therealsaumil"
 IMAGENAME="armoury"
-TAGNAME="10-2021"
+TAGNAME="07-2022"
 
 docker run \
 	-it \

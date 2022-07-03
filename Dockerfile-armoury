@@ -23,6 +23,7 @@ WORKDIR /opt
 RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/arm-unknown-linux.tar.xz | tar -Jxv
 RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/mips-unknown-linux.tar.xz | tar -Jxv
 RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/mipsel-unknown-linux.tar.xz | tar -Jxv
+RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/aarch64-buildroot-linux-uclibc.tar.xz | tar -Jxv
 
 # Create an xdev user for all userland work
 RUN adduser --disabled-password --gecos "" xdev

@@ -2,6 +2,6 @@
 
 OWNERNAME="therealsaumil"
 IMAGENAME="armoury"
-TAGNAME="10-2021"
+TAGNAME="07-2022"
 
 DOCKER_BUILDKIT=1 docker build -t $OWNERNAME/$IMAGENAME:$TAGNAME -f Dockerfile-armoury .
