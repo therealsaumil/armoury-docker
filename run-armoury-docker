@@ -8,5 +8,5 @@ docker run \
 	-it \
 	--rm \
 	--name armoury-docker \
-	--mount "type=bind,src=$(pwd)/workspace,dst=/home/xdev/workspace" \
+	-v "$(pwd)/workspace:/home/xdev/workspace" \
 	$OWNERNAME/$IMAGENAME:$TAGNAME $*

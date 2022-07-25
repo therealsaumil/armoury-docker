@@ -16,5 +16,6 @@ export PATH="$PATH:/opt/usr/bin/"
 # globally setting LD_LIBRARY_PATH messes up rather badly
 alias arm-make="LD_LIBRARY_PATH=/opt/usr/lib/ make ARCH=arm CROSS_COMPILE=arm-linux-"
 alias aarch64-make="LD_LIBRARY_PATH=/opt/usr/lib/ make ARCH=aarch64 CROSS_COMPILE=aarch64-linux-"
+alias arm64-make="LD_LIBRARY_PATH=/opt/usr/lib/ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-"
 alias mips-make="LD_LIBRARY_PATH=/opt/usr/lib/ make ARCH=mips CROSS_COMPILE=mips-linux-"
 alias mipsel-make="LD_LIBRARY_PATH=/opt/usr/lib/ make ARCH=mips CROSS_COMPILE=mipsel-linux-"

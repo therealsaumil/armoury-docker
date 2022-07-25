@@ -11,9 +11,13 @@ RUN apt update && \
                 curl \
                 wget \
                 vim \
+                bc \
+                flex \
+                bison \
                 locales \
                 procps \
                 build-essential \
+                libssl-dev \
                 ncurses-dev \
                 elfutils \
                 --yes
