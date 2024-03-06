@@ -2,7 +2,7 @@
 # Cross compiler stuff
 # by Saumil Shah
 
-FROM debian:stable-slim
+FROM debian:11-slim
 
 # Install packages
 RUN apt update && \
@@ -10,6 +10,7 @@ RUN apt update && \
     apt install sudo \
                 curl \
                 wget \
+                less \
                 vim \
                 bc \
                 flex \
@@ -24,9 +25,10 @@ RUN apt update && \
 
 WORKDIR /opt
 
-RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/arm-unknown-linux.tar.xz | tar -Jxv
-RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/mips-unknown-linux.tar.xz | tar -Jxv
-RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/mipsel-unknown-linux.tar.xz | tar -Jxv
+#RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/arm-unknown-linux.tar.xz | tar -Jxv
+RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/arm-buildroot-linux-uclibc.tar.xz | tar -Jxv
+RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/mips-buildroot-linux-uclibc.tar.xz | tar -Jxv
+RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/mipsel-buildroot-linux-uclibc.tar.xz | tar -Jxv
 RUN curl -L https://github.com/therealsaumil/emux-buildroot-toolchains/raw/master/aarch64-buildroot-linux-uclibc.tar.xz | tar -Jxv
 
 # Create an xdev user for all userland work
